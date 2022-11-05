@@ -1,13 +1,11 @@
 const app = require('express')();
 const api = require('./module/api');
 
-api.forEach(route=>{
-        app[route.method](route.path,(req,res)=>{
-            let userController = new route.controller(req,res);
-            userController.send()
-        })
-})
+async function initApp() {
+    api(app);
+    app.listen(4000,()=>{
+        console.log(`start`)
+    })
+};
 
-app.listen(4000,()=>{
-    console.log(`start`)
-})
+initApp()
